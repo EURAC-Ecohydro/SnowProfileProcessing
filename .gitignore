@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-Data
+Data/Input_data
+Data/Support_data
+Data/Output_data
