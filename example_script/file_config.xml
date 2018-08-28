@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<static>
+<general>
+	<output_dir> "../Data/Output_data/" </output_dir>
+</general>
+<part1>	
+	<!-- Input Part 1 -->
+	<input_dir> "../Data/Input_data/" </input_dir>
+	<stratigraphy_file> "Dati_strati_Husky_2012_18.csv" </stratigraphy_file>  <!-- # File csv --> 
+	<density_file> "Dati_densita_Husky_2012_18.csv" </density_file>     <!-- # File csv --> 
+	<dates_colnames> "Data" </dates_colnames> <!-- # format YYYY-mm, example 2018-01-01 -->
+	<hours_colnames> "Ora"  </hours_colnames> <!--  # HMM, example 1030, 830 (numeric) -->
+	<station_code> "Codice.Stazione" </station_code>
+	<output_combined_file> "Dati_strati_densita_Husky_2012_18.csv" </output_combined_file>
+</part1>
+<part2>
+	<!-- Input Part 2 -->
+	<merged_table_dir> "../Data/Output_data/" </merged_table_dir>
+	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
+	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
+	<grain_shape2_colnames> "FomaGrani2" </grain_shape2_colnames>
+	<density_colnames> "density" </density_colnames>
+	<hardness_colnames> "TestMano" </hardness_colnames>
+	<output_SWE_grain_density_AVG_file> "SWE_grain_hardness.csv" </output_SWE_grain_density_AVG_file>
+	<output_SWE_grain_density_N_file> "SWE_grain_hardness_N.csv" </output_SWE_grain_density_N_file>
+	<output_SWE_grain_density_SD_file> "SWE_grain_hardness_SD.csv" </output_SWE_grain_density_SD_file>
+</part2> 
+<part3> 
+	<!-- Input Part 3 -->
+	<SWE_grain_hardness_dir> "../Data/Support_files/" </SWE_grain_hardness_dir>
+	<SWE_grain_hardness_file> "SWE_grani.csv" </SWE_grain_hardness_file>
+	<merged_table_dir> "../Data/Output_data/" </merged_table_dir>
+	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
+	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
+	<grain_shape2_colnames> "FomaGrani2" </grain_shape2_colnames>
+	<density_colnames> "density" </density_colnames>
+	<hardness_colnames> "TestMano" </hardness_colnames>
+	<layer_from_colnames> "Da" </layer_from_colnames>
+	<layer_to_colnames>	"A" </layer_to_colnames>
+	<filter_profile_colnames> "Filter_code" </filter_profile_colnames>
+	<output_density_SWE_estimated_file> "Profiles_with_Density_and_SWE_estimated.csv" </output_density_SWE_estimated_file>
+</part3>
+<part4>	
+	<!-- Input Part 4 -->
+	<new_profiles_table_dir> "../Data/Output_data/" </new_profiles_table_dir>
+	<new_profiles_table_file> "Profiles_with_Density_and_SWE_estimated.csv" </new_profiles_table_file>
+	<filter_profile_colnames> "Filter_code" </filter_profile_colnames>
+	<datetime_colnames> "Datetime" </datetime_colnames>
+	<stat.code_colnames> "Codice.Stazione" </stat.code_colnames>
+	<altitude_colnames> "Altitudine" </altitude_colnames>
+	<latitute_colnames> "LatUTM" </latitute_colnames>
+	<longitude_colnames> "LongUTM" </longitude_colnames>
+	<exposition_colnames> "Esposizione" </exposition_colnames>
+	<date_colnames> "Data" </date_colnames>
+	<hours_colnames> "Ora" </hours_colnames>
+	<layer_from_colnames> "Da" </layer_from_colnames>
+	<density_final_colnames> "density_final"  </density_final_colnames>
+	<SWE_colnames> "SWE_calc" </SWE_colnames>
+	<output_profile_aggregation> "Profiles_aggregated.csv" </output_profile_aggregation> 
+</part4>
+</static>
+
+

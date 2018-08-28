@@ -16,7 +16,7 @@
 #' 
 #' @return A dataframe having that summarise the max snow height, the meand snow density and the total snow water equivalent for each surveys executed
 #'  
-#' @example See an example in inst/examples_profile_analysis.R
+#' @examples See an example in inst/examples_profile_analysis.R
    
 aggregate_profiles = function(new_profiles_table, filter_profile_colnames,
                               supplementary_info_variables,

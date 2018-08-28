@@ -1,0 +1,4 @@
+In Data create a folder structure following these rules:
+1. Create a folder called: Input_data
+2. Create a folder called: Output_data
+3. Create a folder called: Support_data

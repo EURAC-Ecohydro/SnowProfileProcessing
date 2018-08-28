@@ -2,14 +2,25 @@ rm(list = ls())
 library(SnowProfileProcessing)
 library(XML)
 
+# ~~~~~~ Set working directory to Source File Location ~~~~~~~~ 
+
+# Remember to set working directory as folder were this script is hosted.
+# Click on Session --> Set Working Directory --> To Source File Location
+
+
 # ~~~~~~ Read external input file ~~~~~~~~ 
-inpt_file = xmlParse("file_cofig.xml",useInternalNodes = F) 
+inpt_file = xmlParse("file_config.xml",useInternalNodes = F) 
 
 list_inpt = xmlToList(inpt_file)
-list_inpt = list_inpt[-which(names(list_inpt) == "comment")]
+if(any(names(list_inpt) == "comment")){
+  list_inpt = list_inpt[-which(names(list_inpt) == "comment")]
+}
 
 for(i in 1:length(list_inpt)){
-  list_inpt[[i]] = list_inpt[[i]][-which(names(list_inpt[[i]]) == "comment")]
+  if(any(names(list_inpt[[i]]) == "comment")){
+    list_inpt[[i]] = list_inpt[[i]][-which(names(list_inpt[[i]]) == "comment")]
+  }
+  # list_inpt[[i]] = list_inpt[[i]][-which(names(list_inpt[[i]]) == "comment")]
 }
 
 for(i in 1:length(list_inpt)){
@@ -18,19 +29,22 @@ for(i in 1:length(list_inpt)){
   }
 }
 
-#~~~~~~ Input ~~~~~~~~
+# ~ ~ ~ ~ General Input ~ ~ ~ ~ 
 
-input_dir = list_inpt$general$input_dir
-support_dir = list_inpt$general$support_dir
-output = list_inpt$general$output_dir
+output_dir = list_inpt$general$output_dir
+rm(i)
+rm(j)
 
-# input_dir =  "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Input_data/"
-# support_dir = "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Support_files/"
-# output_dir = "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Output_data/"
-
-
-
+#===========================================================================================================================================================================
 # ....... Part 1 .......
+# 
+# Description:  In this section we merge stratigraphy with density.
+#               The two file must have the same datetime and the same station code to perform the merging process. 
+#               Horizontal density sample allow to cross layers and position of meauserment. 
+
+# ~ ~ ~ ~ Input ~ ~ ~ ~
+
+input_dir = list_inpt$part1$input_dir
 
 stratigraphy_file = list_inpt$part1$stratigraphy_file
 density_file = list_inpt$part1$density_file
@@ -39,76 +53,7 @@ hours_colnames = list_inpt$part1$hours_colnames
 station_code = list_inpt$part1$station_code
 output_combined_file = list_inpt$part1$output_combined_file
 
-# stratigraphy_file = "Dati_strati_Husky_2012_18.csv"   # File csv
-# density_file = "Dati_densita_Husky_2012_18.csv"       # File csv
-# 
-# dates_colnames = "Data"    # format YYYY-mm-df_grains_hardness_density, example 2018-01-01
-# hours_colnames = "Ora"     # HMM, example 1030, 830 (numeric)
-# station_code = "Codice.Stazione"
-# 
-# output_combined_file = "Dati_strati_densita_Husky_2012_18.csv"
-
-# ....... Part 2 .......
-
-merged_table_dir = output_dir
-merged_table_file = "Dati_strati_densita_Husky_2012_18.csv"
-
-grain_shape1_colnames = "FomaGrani1"
-grain_shape2_colnames = "FomaGrani2"
-density_colnames = "density"
-hardness_colnames = "TestMano"
-
-output_SWE_grain_density_AVG_file  = "SWE_grain_hardness.csv"
-output_SWE_grain_density_N_file  = "SWE_grain_hardness_N.csv"
-output_SWE_grain_density_SD_file = "SWE_grain_hardness_SD.csv"
-
-
-# ....... Part 3 .......
-
-SWE_grain_hardness_dir = support_dir
-SWE_grain_hardness_file = "EXAMPLE_SWE_grain_hardness.csv"
-
-merged_table_dir = output_dir
-merged_table_file = "Dati_strati_densita_Husky_2012_18.csv"
-
-grain_shape1_colnames = "FomaGrani1"
-grain_shape2_colnames = "FomaGrani2"
-density_colnames = "density"
-hardness_colnames = "TestMano"
-
-layer_from_colnames = "Da"
-layer_to_colnames = "A"
-
-filter_profile_colnames = "Filter_code"
-
-output_density_SWE_estimated_file = "Profiles_with_Density_and_SWE_estimated.csv"
-
-# ....... Part 4 .......
-
-new_profiles_table_dir = output_dir
-new_profiles_table_file = "Profiles_with_Density_and_SWE_estimated.csv"
-
-filter_profile_colnames = "Filter_code"
-datetime_colnames = "Datetime"
-stat.code_colnames = "Codice.Stazione"
-altitude_colnames = "Altitudine"
-latitute_colnames = "LatUTM"
-longitude_colnames = "LongUTM"
-exposition_colnames = "Esposizione"
-date_colnames = "Data"
-hours_colnames = "Ora"
-layer_from_colnames = "Da"
-density_final_colnames = "density_final"
-SWE_colnames = "SWE_calc"
-
-output_profile_aggregation = "Profiles_aggregated.csv"
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# ....... Part 1 .......
-
-#~~~~~~ Combine tables and write output ~~~~~~~~
+# ~ ~ ~ ~ Combine tables ~ ~ ~ ~
 
 merged_table = combine_stratigraphy_density(input_dir = input_dir,
                                             stratigraphy_file = stratigraphy_file,
@@ -117,12 +62,33 @@ merged_table = combine_stratigraphy_density(input_dir = input_dir,
                                             hours_colnames = hours_colnames,
                                             station_code = station_code)
 
-# write.csv(merged_table,paste(output_dir, output_combined_file,sep = ""),na = "NaN",row.names = F)
+# ~ ~ ~ ~ Write output ~ ~ ~ ~
 
+write.csv(merged_table,paste(output_dir, output_combined_file,sep = ""),na = "NaN",row.names = F)
 
+#===========================================================================================================================================================================
 # ....... Part 2 .......
+#
+# Description:  In this section we estimate the snow density matrix based on Valt method starting from known layers
+#               Snow density are estimated from grain shape and hardnes.
+#               In this example we calculate snow density on the dataset of snow surveys (Snow Observer, mod.3-4 AINEVA) of Trentino (MeteoTrentino) for peridod 2012-2018
+#               (about 12000 layers on 48 station)
 
-#~~~~~~ Read mergerd table, and calculate matrix of density from grain shape and hardness (Valt et al. ) ~~~~~~~~
+# ~ ~ ~ ~ Input ~ ~ ~ ~
+
+merged_table_dir = list_inpt$part2$merged_table_dir
+merged_table_file = list_inpt$part2$merged_table_file
+
+grain_shape1_colnames = list_inpt$part2$grain_shape1_colnames
+grain_shape2_colnames = list_inpt$part2$grain_shape2_colnames
+density_colnames = list_inpt$part2$density_colnames
+hardness_colnames = list_inpt$part2$hardness_colnames
+
+output_SWE_grain_density_AVG_file  = list_inpt$part2$output_SWE_grain_density_AVG_file
+output_SWE_grain_density_N_file  = list_inpt$part2$output_SWE_grain_density_N_file
+output_SWE_grain_density_SD_file = list_inpt$part2$output_SWE_grain_density_SD_file
+
+# ~ ~ ~ ~ Read mergerd table, and calculate matrix of density from grain shape and hardness (Valt et al. ) ~ ~ ~ ~
 
 merged_table = read.csv(paste(merged_table_dir, merged_table_file,sep = ""),stringsAsFactors = F )
 
@@ -130,50 +96,92 @@ SWE_grain_table = calculate_density_matrix_grain_hardness(merged_table,grain_sha
 SWE_grain_table_N_obs = calculate_density_matrix_grain_hardness(merged_table,grain_shape1_colnames,grain_shape2_colnames ,density_colnames, hardness_colnames)[[2]]
 SWE_grain_table_st.dv = calculate_density_matrix_grain_hardness(merged_table,grain_shape1_colnames,grain_shape2_colnames ,density_colnames, hardness_colnames)[[3]]
 
-# write.csv(SWE_grain_table, paste(output_dir, output_SWE_grain_density_AVG_file,sep = ""),na = "NaN")
-# write.csv(SWE_grain_table_N_obs, paste(output_dir, output_SWE_grain_density_N_file,sep = ""),na = "NaN")
-# write.csv(SWE_grain_table_st.dv, paste(output_dir, output_SWE_grain_density_SD_file,sep = ""),na = "NaN")
+# ~ ~ ~ ~ Write output ~ ~ ~ ~
+
+write.csv(SWE_grain_table, paste(output_dir, output_SWE_grain_density_AVG_file,sep = ""),na = "NaN")
+write.csv(SWE_grain_table_N_obs, paste(output_dir, output_SWE_grain_density_N_file,sep = ""),na = "NaN")
+write.csv(SWE_grain_table_st.dv, paste(output_dir, output_SWE_grain_density_SD_file,sep = ""),na = "NaN")
 
 
+#===========================================================================================================================================================================
 # ....... Part 3 .......
+#
+# Description:  In this section we estimate the snow density based on Valt method for missing layers and calculate snow water equivalent.
+#               For each layer,if the density is missing it is estimated from SWE_grain_hardness_file (the matrix created before or a literature matrix)
+#               Snow water equivalent are calculated from snow density and layer thickness.
+#               SWE and Density are calculated for EACH layer.
 
-#~~~~~~ Reconstruct rho and SWE for each layer: if not measured we use Valt et al.  ~~~~~~~~
+# ~ ~ ~ ~ Input ~ ~ ~ ~
+
+SWE_grain_hardness_dir = list_inpt$part3$SWE_grain_hardness_dir
+SWE_grain_hardness_file = list_inpt$part3$SWE_grain_hardness_file
+merged_table_dir =  list_inpt$part3$merged_table_dir
+merged_table_file =  list_inpt$part3$merged_table_file
+grain_shape1_colnames =  list_inpt$part3$grain_shape1_colnames
+grain_shape2_colnames =  list_inpt$part3$grain_shape2_colnames
+density_colnames =  list_inpt$part3$density_colnames
+hardness_colnames =  list_inpt$part3$hardness_colnames
+layer_from_colnames = list_inpt$part3$layer_from_colnames
+layer_to_colnames =  list_inpt$part3$layer_to_colnames
+filter_profile_colnames = list_inpt$part3$filter_profile_colnames
+output_density_SWE_estimated_file = list_inpt$part3$output_density_SWE_estimated_file
+
+# ~ ~ ~ ~ Reconstruct rho and SWE for each layer: if not measured we use Valt et al. ~ ~ ~ ~
 
 merged_table = read.csv(paste(merged_table_dir, merged_table_file,sep = ""),stringsAsFactors = F )
-
-SWE_grain_table = read.csv(paste(support_dir,SWE_grain_hardness_file,sep = ""), stringsAsFactors = F, header = F,na.strings = c("NA", "NaN"))
-
+SWE_grain_table = read.csv(paste(SWE_grain_hardness_dir,SWE_grain_hardness_file,sep = ""), stringsAsFactors = F, header = F,na.strings = c("NA", "NaN"))
 
 new_profiles_table = calculator_density_and_SWE(merged_table, SWE_grain_table, grain_shape1_colnames,
                                                 grain_shape2_colnames, density_colnames, hardness_colnames,
                                                 layer_from_colnames, layer_to_colnames,filter_profile_colnames)
 
+# ~ ~ ~ ~ Write output ~ ~ ~ ~
 
-# write.csv(new_profiles_table, paste(output_dir, output_density_SWE_estimated_file, sep = ""),na = "NaN", row.names = F)
+write.csv(new_profiles_table, paste(output_dir, output_density_SWE_estimated_file, sep = ""),na = "NaN", row.names = F)
 
 
+#===========================================================================================================================================================================
 # ....... Part 4 .......
+#
+# Description:  In this section we aggregate each profile to observe the behaviour of snowpack in term of snow height, snow density and snow water equivalent
+#               In the example there is the possibility to expand variables to show inside output aggregation. To insert new information, for example slope, you can add
+#               a new variable in file_config.xml, part4, read it in input section, and add to the variable supplementary_info_variables.
 
-#~~~~~~ Aggregate for each profile Density, HS and SWE  ~~~~~~~~
+# ~ ~ ~ ~ Input ~ ~ ~ ~
 
+new_profiles_table_dir = list_inpt$part4$new_profiles_table_dir
+new_profiles_table_file = list_inpt$part4$new_profiles_table_file
+
+filter_profile_colnames = list_inpt$part4$filter_profile_colnames
+
+datetime_colnames = list_inpt$part4$datetime_colnames
+stat.code_colnames = list_inpt$part4$stat.code_colnames
+altitude_colnames = list_inpt$part4$altitude_colnames
+latitute_colnames = list_inpt$part4$latitute_colnames
+longitude_colnames = list_inpt$part4$longitude_colnames
+exposition_colnames = list_inpt$part4$exposition_colnames
+
+date_colnames = list_inpt$part4$date_colnames
+hours_colnames = list_inpt$part4$hours_colnames
+layer_from_colnames = list_inpt$part4$layer_from_colnames
+density_final_colnames = list_inpt$part4$density_final_colnames
+SWE_colnames = list_inpt$part4$SWE_colnames
+
+output_profile_aggregation = list_inpt$part4$output_profile_aggregation
+
+# ~ ~ ~ ~ Aggregate for each profile Density, HS and SWE ~ ~ ~ ~
 
 new_profiles_table = read.csv(paste(new_profiles_table_dir, new_profiles_table_file,sep = ""),stringsAsFactors = F )
 
 supplementary_info_variables = c(datetime_colnames,stat.code_colnames,
                                  altitude_colnames, latitute_colnames, longitude_colnames,exposition_colnames)
 
-# profiles_aggreg = aggregate_profiles(new_profiles_table,
-#                     filter_profile_colnames, datetime_colnames,stat.code_colnames,
-#                     altitude_colnames, latitute_colnames, longitude_colnames,exposition_colnames,
-#                     date_colnames, hours_colnames,
-#                     layer_from_colnames, density_final_colnames, SWE_colnames)
-
 profiles_aggreg = aggregate_profiles(new_profiles_table,filter_profile_colnames,
                                      supplementary_info_variables,
                                      date_colnames, hours_colnames,
                                      layer_from_colnames, density_final_colnames, SWE_colnames)
 
-# write.csv(profiles_aggreg,paste(output_dir,output_profile_aggregation,sep = ""),na = "NaN",row.names = F)
+write.csv(profiles_aggreg,paste(output_dir,output_profile_aggregation,sep = ""),na = "NaN",row.names = F)
 
 
 
