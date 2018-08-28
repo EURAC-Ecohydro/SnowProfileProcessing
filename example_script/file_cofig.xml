@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<static>
+<general>
+	<!-- Directory !--> 
+	<input_dir> "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Input_data/" </input_dir>
+	<support_dir> "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Support_files/" </support_dir>
+	<output_dir> "H:/Projekte/Cryomon/06_Workspace/BrC/neve_tn/2012_2018_test/Output_data/" </output_dir>
+</general>
+<part1>	
+	<!-- Input Part 1 -->
+	<stratigraphy_file> "Dati_strati_Husky_2012_18.csv" </stratigraphy_file>  <!-- # File csv --> 
+	<density_file> "Dati_densita_Husky_2012_18.csv" </density_file>     <!-- # File csv --> 
+	<dates_colnames> "Data" </dates_colnames> <!-- # format YYYY-mm, example 2018-01-01 -->
+	<hours_colnames> "Ora"  </hours_colnames> <!--  # HMM, example 1030, 830 (numeric) -->
+	<station_code> "Codice.Stazione" </station_code>
+	<output_combined_file> "Dati_strati_densita_Husky_2012_18.csv" </output_combined_file>
+</part1>
+<part2>
+	<!-- Input Part 2 -->
+	<merged_table_dir> output_dir </merged_table_dir>
+	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
+	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
+	<grain_shape2_colnames> "FomaGrani2" </grain_shape2_colnames>
+	<density_colnames> "density" </density_colnames>
+	<hardness_colnames> "TestMano" </hardness_colnames>
+	<output_SWE_grain_density_AVG_file> "SWE_grain_hardness.csv" </output_SWE_grain_density_AVG_file>
+	<output_SWE_grain_density_N_file> "SWE_grain_hardness_N.csv" </output_SWE_grain_density_N_file>
+	<output_SWE_grain_density_SD_file> "SWE_grain_hardness_SD.csv" </output_SWE_grain_density_SD_file>
+</part2> 
+	
+<!--# ....... Part 2 .......
+
+merged_table_dir = output_dir
+merged_table_file = "Dati_strati_densita_Husky_2012_18.csv"
+
+grain_shape1_colnames = "FomaGrani1"
+grain_shape2_colnames = "FomaGrani2"
+density_colnames = "density"
+hardness_colnames = "TestMano"
+
+output_SWE_grain_density_AVG_file  = "SWE_grain_hardness.csv"
+output_SWE_grain_density_N_file  = "SWE_grain_hardness_N.csv"
+output_SWE_grain_density_SD_file = "SWE_grain_hardness_SD.csv"
+
+
+# ....... Part 3 .......
+
+SWE_grain_hardness_dir = support_dir
+SWE_grain_hardness_file = "EXAMPLE_SWE_grain_hardness.csv"
+
+merged_table_dir = output_dir
+merged_table_file = "Dati_strati_densita_Husky_2012_18.csv"
+
+grain_shape1_colnames = "FomaGrani1"
+grain_shape2_colnames = "FomaGrani2"
+density_colnames = "density"
+hardness_colnames = "TestMano"
+
+layer_from_colnames = "Da"
+layer_to_colnames = "A"
+
+filter_profile_colnames = "Filter_code"
+
+output_density_SWE_estimated_file = "Profiles_with_Density_and_SWE_estimated.csv"
+
+# ....... Part 4 .......
+
+new_profiles_table_dir = output_dir
+new_profiles_table_file = "Profiles_with_Density_and_SWE_estimated.csv"
+
+filter_profile_colnames = "Filter_code"
+datetime_colnames = "Datetime"
+stat.code_colnames = "Codice.Stazione"
+altitude_colnames = "Altitudine"
+latitute_colnames = "LatUTM"
+longitude_colnames = "LongUTM"
+date_colnames = "Data"
+hours_colnames = "Ora"
+layer_from_colnames = "Da"
+density_final_colnames = "density_final"  
+SWE_colnames = "SWE_calc"
+
+output_profile_aggregation = "Profiles_aggregated.csv" -->
+
+</static>
+
