@@ -1,4 +1,5 @@
 rm(list = ls())
+
 library(devtools)
 install_github("bridachristian/SnowProfileProcessing")
 library(SnowProfileProcessing)
@@ -28,6 +29,7 @@ output_dir = list_inpt$general$output_dir
 #               Horizontal density sample allow to cross layers and position of meauserment. 
 
 # ~ ~ ~ ~ Input ~ ~ ~ ~
+rm(list =setdiff(ls(),c("list_inpt","output_dir")) )
 
 input_dir = list_inpt$part1$input_dir
 
@@ -60,6 +62,7 @@ write.csv(merged_table,paste(output_dir, output_combined_file,sep = ""),na = "Na
 #               (about 12000 layers on 48 station)
 
 # ~ ~ ~ ~ Input ~ ~ ~ ~
+rm(list =setdiff(ls(),c("list_inpt","output_dir")) )
 
 merged_table_dir = list_inpt$part2$merged_table_dir
 merged_table_file = list_inpt$part2$merged_table_file
@@ -97,6 +100,7 @@ write.csv(SWE_grain_table_st.dv, paste(output_dir, output_SWE_grain_density_SD_f
 #               SWE and Density are calculated for EACH layer.
 
 # ~ ~ ~ ~ Input ~ ~ ~ ~
+rm(list =setdiff(ls(),c("list_inpt","output_dir")))
 
 SWE_grain_hardness_dir = list_inpt$part3$SWE_grain_hardness_dir
 SWE_grain_hardness_file = list_inpt$part3$SWE_grain_hardness_file
@@ -167,8 +171,5 @@ profiles_aggreg = aggregate_profiles(new_profiles_table,filter_profile_colnames,
                                      layer_from_colnames, density_final_colnames, SWE_colnames)
 
 write.csv(profiles_aggreg,paste(output_dir,output_profile_aggregation,sep = ""),na = "NaN",row.names = F)
-
-
-
 
 

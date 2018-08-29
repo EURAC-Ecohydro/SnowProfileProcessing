@@ -71,24 +71,9 @@ calculator_density_and_SWE = function(merged_table, SWE_grain_table, grain_shape
   grain_shape3[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1 )] = paste(df_grains_ordered$F_min[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1 )], "-",df_grains_ordered$F_max[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1)],sep = "")
   grain_shape3[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min != df_grains_ordered$F_max-1 )] = NA
   grain_shape3[grain_shape3 ==Inf] = NA
-  
-  
-  
-  #######################
-  # snow_grain1 = substring(merged_table[,which(colnames(merged_table) == grain_shape1_colnames)],1,1)
-  # snow_grain2 = substring(df_new$FomaGrani2,1,1)
-  # hand_test = df_new$TestMano
-  
-  # rho_estim = data.frame(rep(NA,times = nrow(merged_table)),rep(NA,times = nrow(merged_table)))
-  # colnames(rho_estim) = c("rho_grain1", "rho_grain2") 
-  
+
   rho_estim = rep(NA,times = nrow(merged_table))
-  
-  # for(i in 1: nrow(merged_table)){
-  #   rho_estim[i,1] = SWE_grain_table[which(SWE_grain_table$`Grani_Mano` == snow_grain1[i]), which(colnames(SWE_grain_table)==hand_test[i])]
-  #   rho_estim[i,2] = SWE_grain_table[which(SWE_grain_table$`Grani_Mano` == snow_grain2[i]), which(colnames(SWE_grain_table)==hand_test[i])]
-  # }
-  
+
   for(i in 1: nrow(merged_table)){
     if(is.na(grain_shape3[i]) | is.na(hardness[i])){
       rho_estim[i] = NA
@@ -121,6 +106,12 @@ calculator_density_and_SWE = function(merged_table, SWE_grain_table, grain_shape
   # filter_profile_colnames
   
   merged_table[,which(colnames(merged_table) == filter_profile_colnames)] = factor(merged_table[,which(colnames(merged_table) == filter_profile_colnames)])
+  
+  reconstr_flag = rep(0, times = nrow(merged_table))
+  reconstr_flag[which(is.na(merged_table[,which(colnames(merged_table) == density_colnames)]))] = 1
+  
+  thickness = merged_table[,which(colnames(merged_table) == layer_from_colnames)]-merged_table[,which(colnames(merged_table) == layer_to_colnames)]
+  merged_table = cbind(merged_table, reconstr_flag, thickness)
   
   merged_table_new = merged_table
   
