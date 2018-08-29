@@ -155,6 +155,8 @@ hours_colnames = list_inpt$part4$hours_colnames
 layer_from_colnames = list_inpt$part4$layer_from_colnames
 density_final_colnames = list_inpt$part4$density_final_colnames
 SWE_colnames = list_inpt$part4$SWE_colnames
+recontrustction_flag_colnames = list_inpt$part4$recontrustction_flag_colnames
+thickness_colnames = list_inpt$part4$thickness_colnames
 
 output_profile_aggregation = list_inpt$part4$output_profile_aggregation
 
@@ -168,7 +170,8 @@ supplementary_info_variables = c(datetime_colnames,stat.code_colnames,
 profiles_aggreg = aggregate_profiles(new_profiles_table,filter_profile_colnames,
                                      supplementary_info_variables,
                                      date_colnames, hours_colnames,
-                                     layer_from_colnames, density_final_colnames, SWE_colnames)
+                                     layer_from_colnames, density_final_colnames, SWE_colnames,
+                                     recontrustction_flag_colnames,thickness_colnames)
 
 write.csv(profiles_aggreg,paste(output_dir,output_profile_aggregation,sep = ""),na = "NaN",row.names = F)
 

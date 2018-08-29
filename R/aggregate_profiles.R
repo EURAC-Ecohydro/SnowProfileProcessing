@@ -21,18 +21,20 @@
 aggregate_profiles = function(new_profiles_table, filter_profile_colnames,
                               supplementary_info_variables,
                               date_colnames, hours_colnames,
-                              layer_from_colnames, density_final_colnames, SWE_colnames){
+                              layer_from_colnames, density_final_colnames, SWE_colnames,
+                              recontrustction_flag_colnames,thickness_colnames){
   
   new_profiles_table[, which(colnames(new_profiles_table) == filter_profile_colnames)] = as.factor(new_profiles_table[, which(colnames(new_profiles_table) == filter_profile_colnames)])
   
   vect_colnames = c(filter_profile_colnames,supplementary_info_variables,
                     date_colnames, hours_colnames,
-                    layer_from_colnames, density_final_colnames, SWE_colnames)
+                    layer_from_colnames, density_final_colnames, SWE_colnames,
+                    recontrustction_flag_colnames,thickness_colnames)
   
   table_short = new_profiles_table[which(colnames(new_profiles_table) %in% vect_colnames)]
   
   
-  aggregate_short_unique = aggregate(table_short[,-c(which(colnames(table_short) %in% c(layer_from_colnames,density_final_colnames,SWE_colnames)))],
+  aggregate_short_unique = aggregate(table_short[,-c(which(colnames(table_short) %in% c(layer_from_colnames,density_final_colnames,SWE_colnames, recontrustction_flag_colnames,thickness_colnames)))],
                                      by = list(table_short[,which(colnames(table_short) == filter_profile_colnames)]), FUN = unique)[,-1]
   
   
@@ -46,8 +48,22 @@ aggregate_profiles = function(new_profiles_table, filter_profile_colnames,
   dens = 100*SWE/HS
   colnames(dens) = "Density_Avg"
   
+  sum_reconstr_flag = aggregate(table_short[,which(colnames(table_short) == recontrustction_flag_colnames)], by = list(table_short[,which(colnames(table_short) == filter_profile_colnames)]), FUN = function(x) sum(x, na.rm = T))[2]
+  reconstr_flag = sum_reconstr_flag
+  reconstr_flag[reconstr_flag!= 0] = 1
+  colnames(reconstr_flag) = "Flag_reconstruct"
   
-  total_file = data.frame(aggregate_short_unique,HS, dens, SWE)
+  
+  
+  ##########
+  thick_reconstr  = table_short[,which(colnames(table_short) == thickness_colnames)] * table_short[,which(colnames(table_short) == recontrustction_flag_colnames)]
+  tot_thickness = aggregate(thick_reconstr, by = list(table_short[,which(colnames(table_short) == filter_profile_colnames)]), FUN = function(x) sum(x, na.rm = T))[2]
+  percent = 100*tot_thickness/ HS
+  
+  colnames(percent) = "Percentage_of_missing"
+  
+  ##########
+  total_file = data.frame(aggregate_short_unique,HS, dens, SWE,reconstr_flag,percent)
   
   total_file$Ora[nchar(total_file$Ora)<4] = paste0(sapply(X = 4-nchar(total_file$Ora[nchar(total_file$Ora)<4]),FUN = function(x) paste0(rep("0",times = x),collapse = "")),total_file$Ora[nchar(total_file$Ora)<4])
   total_file$Ora = paste(substring(total_file$Ora,1,2),":",substring(total_file$Ora,3,4),sep = "")

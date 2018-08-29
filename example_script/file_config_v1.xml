@@ -56,6 +56,8 @@
 	<layer_from_colnames> "Da" </layer_from_colnames>
 	<density_final_colnames> "density_final"  </density_final_colnames>
 	<SWE_colnames> "SWE_calc" </SWE_colnames>
+	<recontrustction_flag_colnames> "reconstr_flag" </recontrustction_flag_colnames>
+	<thickness_colnames> "thickness" </thickness_colnames>
 	<output_profile_aggregation> "Profiles_aggregated.csv" </output_profile_aggregation> 
 </part4>
 </static>
