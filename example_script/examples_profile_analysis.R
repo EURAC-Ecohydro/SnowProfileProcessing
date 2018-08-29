@@ -1,4 +1,6 @@
 rm(list = ls())
+library(devtools)
+install_github("bridachristian/SnowProfileProcessing")
 library(SnowProfileProcessing)
 library(XML)
 
@@ -9,31 +11,14 @@ library(XML)
 
 
 # ~~~~~~ Read external input file ~~~~~~~~ 
-inpt_file = xmlParse("file_config.xml",useInternalNodes = F) 
+file_config_name = "file_config_v1.xml"
+inpt_file = xmlParse(file_config_name,useInternalNodes = F) 
 
-list_inpt = xmlToList(inpt_file)
-if(any(names(list_inpt) == "comment")){
-  list_inpt = list_inpt[-which(names(list_inpt) == "comment")]
-}
-
-for(i in 1:length(list_inpt)){
-  if(any(names(list_inpt[[i]]) == "comment")){
-    list_inpt[[i]] = list_inpt[[i]][-which(names(list_inpt[[i]]) == "comment")]
-  }
-  # list_inpt[[i]] = list_inpt[[i]][-which(names(list_inpt[[i]]) == "comment")]
-}
-
-for(i in 1:length(list_inpt)){
-  for(j in 1:length(list_inpt[[i]])){
-    list_inpt[[i]][[j]] = gsub(pattern =  "\"",replacement = "",x = list_inpt[[i]][[j]])
-  }
-}
+list_inpt = file_config_xml_parsing(inpt_file = inpt_file)
 
 # ~ ~ ~ ~ General Input ~ ~ ~ ~ 
 
 output_dir = list_inpt$general$output_dir
-rm(i)
-rm(j)
 
 #===========================================================================================================================================================================
 # ....... Part 1 .......
