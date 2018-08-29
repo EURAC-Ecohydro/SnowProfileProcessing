@@ -52,17 +52,13 @@ aggregate_profiles = function(new_profiles_table, filter_profile_colnames,
   reconstr_flag = sum_reconstr_flag
   reconstr_flag[reconstr_flag!= 0] = 1
   colnames(reconstr_flag) = "Flag_reconstruct"
-  
-  
-  
-  ##########
+
   thick_reconstr  = table_short[,which(colnames(table_short) == thickness_colnames)] * table_short[,which(colnames(table_short) == recontrustction_flag_colnames)]
   tot_thickness = aggregate(thick_reconstr, by = list(table_short[,which(colnames(table_short) == filter_profile_colnames)]), FUN = function(x) sum(x, na.rm = T))[2]
-  percent = 100*tot_thickness/ HS
+  percent = tot_thickness/ HS
   
-  colnames(percent) = "Percentage_of_missing"
+  colnames(percent) = "Fraction_missing_layer"
   
-  ##########
   total_file = data.frame(aggregate_short_unique,HS, dens, SWE,reconstr_flag,percent)
   
   total_file$Ora[nchar(total_file$Ora)<4] = paste0(sapply(X = 4-nchar(total_file$Ora[nchar(total_file$Ora)<4]),FUN = function(x) paste0(rep("0",times = x),collapse = "")),total_file$Ora[nchar(total_file$Ora)<4])
