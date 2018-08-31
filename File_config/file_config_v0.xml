@@ -28,7 +28,7 @@
 <part3> 
 	<!-- Input Part 3 -->
 	<SWE_grain_hardness_dir> "../Data/Support_files/" </SWE_grain_hardness_dir>
-	<SWE_grain_hardness_file> "SWE_grani_new.csv" </SWE_grain_hardness_file>
+	<SWE_grain_hardness_file> "Grain_Hardness_v0.csv" </SWE_grain_hardness_file>
 	<merged_table_dir> "../Data/Output_data/" </merged_table_dir>
 	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
 	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
@@ -52,6 +52,7 @@
 	<latitute_colnames> "LatUTM" </latitute_colnames>
 	<longitude_colnames> "LongUTM" </longitude_colnames>
 	<exposition_colnames> "Esposizione" </exposition_colnames>
+	<slope_colnames>"Pendenza"</slope_colnames> 
 	<date_colnames> "Data" </date_colnames>
 	<hours_colnames> "Ora" </hours_colnames>
 	<layer_from_colnames> "Da" </layer_from_colnames>

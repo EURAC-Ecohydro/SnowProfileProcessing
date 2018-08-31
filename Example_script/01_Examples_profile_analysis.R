@@ -10,9 +10,10 @@ library(XML)
 # Remember to set working directory as folder were this script is hosted.
 # Click on Session --> Set Working Directory --> To Source File Location
 
+setwd("../File_config/")
 
 # ~~~~~~ Read external input file ~~~~~~~~ 
-file_config_name = "file_config_v1.xml"
+file_config_name = "file_config_v0.xml"
 inpt_file = xmlParse(file_config_name,useInternalNodes = F) 
 
 list_inpt = file_config_xml_parsing(inpt_file = inpt_file)
@@ -150,6 +151,7 @@ altitude_colnames = list_inpt$part4$altitude_colnames
 latitute_colnames = list_inpt$part4$latitute_colnames
 longitude_colnames = list_inpt$part4$longitude_colnames
 exposition_colnames = list_inpt$part4$exposition_colnames
+slope_colnames = list_inpt$part4$slope_colnames
 
 date_colnames = list_inpt$part4$date_colnames
 hours_colnames = list_inpt$part4$hours_colnames
@@ -166,7 +168,7 @@ output_profile_aggregation = list_inpt$part4$output_profile_aggregation
 new_profiles_table = read.csv(paste(new_profiles_table_dir, new_profiles_table_file,sep = ""),stringsAsFactors = F )
 
 supplementary_info_variables = c(datetime_colnames,stat.code_colnames,stat_colnames,
-                                 altitude_colnames, latitute_colnames, longitude_colnames,exposition_colnames)
+                                 altitude_colnames, latitute_colnames, longitude_colnames,exposition_colnames,slope_colnames)
 
 profiles_aggreg = aggregate_profiles(new_profiles_table,filter_profile_colnames,
                                      supplementary_info_variables,
