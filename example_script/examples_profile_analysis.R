@@ -145,6 +145,7 @@ filter_profile_colnames = list_inpt$part4$filter_profile_colnames
 
 datetime_colnames = list_inpt$part4$datetime_colnames
 stat.code_colnames = list_inpt$part4$stat.code_colnames
+stat_colnames = list_inpt$part4$stat_colnames
 altitude_colnames = list_inpt$part4$altitude_colnames
 latitute_colnames = list_inpt$part4$latitute_colnames
 longitude_colnames = list_inpt$part4$longitude_colnames
@@ -164,7 +165,7 @@ output_profile_aggregation = list_inpt$part4$output_profile_aggregation
 
 new_profiles_table = read.csv(paste(new_profiles_table_dir, new_profiles_table_file,sep = ""),stringsAsFactors = F )
 
-supplementary_info_variables = c(datetime_colnames,stat.code_colnames,
+supplementary_info_variables = c(datetime_colnames,stat.code_colnames,stat_colnames,
                                  altitude_colnames, latitute_colnames, longitude_colnames,exposition_colnames)
 
 profiles_aggreg = aggregate_profiles(new_profiles_table,filter_profile_colnames,

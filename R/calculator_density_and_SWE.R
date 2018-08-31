@@ -48,8 +48,6 @@ calculator_density_and_SWE = function(merged_table, SWE_grain_table, grain_shape
   df_tmp_grains = df_grains_hardness_density[,c(1,2)]
   
   df_grains_ordered = matrix(ncol = 2, nrow = nrow(df_grains_hardness_density))
-  
-  df_grains_ordered = matrix(ncol = 2, nrow = nrow(df_grains_hardness_density))
   colnames(df_grains_ordered) = c("F_min", "F_max")
   
   for(i in 1:nrow(df_grains_hardness_density)){
@@ -62,16 +60,20 @@ calculator_density_and_SWE = function(merged_table, SWE_grain_table, grain_shape
     }
   }
   
+  diff = df_grains_ordered$F_max- df_grains_ordered$F_min
+ 
   df_grains_ordered = as.data.frame(df_grains_ordered)
   df_grains_ordered[df_grains_ordered == Inf]  = NA
   
   grain_shape3 = rep(NA, times = nrow(df_grains_hardness_density))
   
+  grain_shape3[which(diff>1)] = df_grains_ordered$F_min[which(diff>1)]
   grain_shape3[which(df_grains_ordered$F_min == df_grains_ordered$F_max)] = df_grains_ordered$F_min[which(df_grains_ordered$F_min == df_grains_ordered$F_max)]
   grain_shape3[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1 )] = paste(df_grains_ordered$F_min[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1 )], "-",df_grains_ordered$F_max[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min == df_grains_ordered$F_max-1)],sep = "")
   grain_shape3[which(df_grains_ordered$F_min != df_grains_ordered$F_max & df_grains_ordered$F_min != df_grains_ordered$F_max-1 )] = NA
   grain_shape3[grain_shape3 ==Inf] = NA
 
+  
   rho_estim = rep(NA,times = nrow(merged_table))
 
   for(i in 1: nrow(merged_table)){
