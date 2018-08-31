@@ -60,7 +60,7 @@ calculator_density_and_SWE = function(merged_table, SWE_grain_table, grain_shape
     }
   }
   
-  diff = df_grains_ordered$F_max- df_grains_ordered$F_min
+  diff = df_grains_ordered[,2]- df_grains_ordered[,1]
  
   df_grains_ordered = as.data.frame(df_grains_ordered)
   df_grains_ordered[df_grains_ordered == Inf]  = NA

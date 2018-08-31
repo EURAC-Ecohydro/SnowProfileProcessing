@@ -28,7 +28,7 @@
 <part3> 
 	<!-- Input Part 3 -->
 	<SWE_grain_hardness_dir> "../Data/Support_files/" </SWE_grain_hardness_dir>
-	<SWE_grain_hardness_file> "SWE_grani.csv" </SWE_grain_hardness_file>
+	<SWE_grain_hardness_file> "SWE_grani_new.csv" </SWE_grain_hardness_file>
 	<merged_table_dir> "../Data/Output_data/" </merged_table_dir>
 	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
 	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
