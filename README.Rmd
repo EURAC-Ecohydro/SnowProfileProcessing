@@ -28,8 +28,12 @@ library(SnowProfileProcessing)
 ```
 
 
-## [Package documentation: Vignette](https://github.com/bridachristian/SnowProfileProcessing/Vignette/SnowProfileProcessing_vignette.Rmd)
+## [Package documentation: Vignette](https://github.com/bridachristian/SnowProfileProcessing/blob/master/Vignette/SnowProfileProcessing_vignette.Rmd)
 
+## References
+
++   Cagnati, A., 2003. *Sistemi di Misura e metodi di osservazio-ne nivometeorologici*, AINEVA, 14 Trento, p. 186
++   Valt M & Cagnati A., 2005 *Stima della Densità della neve conoscendo la forma dei grani e la durezza*, Neve e Valanghe, 55, p. 40-45
 
 ## Contacts:
 
@@ -37,9 +41,5 @@ library(SnowProfileProcessing)
 +   Giacomo Bertoldi: giacomo.bertoldi@eurac.edu Insitute for Alpine Environment, Eurac Research
 
 
-## References
-
-+   Cagnati, A., 2003. *Sistemi di Misura e metodi di osservazio-ne nivometeorologici*, AINEVA, 14 Trento, p. 186
-+   Valt M & Cagnati A., 2005 *Stima della Densità della neve conoscendo la forma dei grani e la durezza*, Neve e Valanghe, 55, p. 40-45
 
 
