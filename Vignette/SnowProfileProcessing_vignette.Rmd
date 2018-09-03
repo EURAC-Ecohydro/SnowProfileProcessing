@@ -1,0 +1,79 @@
+---
+title: "Vignette: SnowProfileProcessing"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The package was developed with the aim to create a dataset of SWE (Snow Water Equivalent) for the Euregio area ( [link](http://www.europaregion.info/it/default.asp)). The idea was to use the data collected by snow observer and shared with Local Avalanche Service in the 3 region, Trentino (I), South Tyrol (I) and Tyrol (O) to have timeseries of SWE for several points. The package was developed in the framework of project [Cryomon Sci-Pro](http://www.eurac.edu/en/research/projects/Pages/projectdetail4240.aspx). The partners are Eurac Research (South Tyrol), University of Trento (Trentino) and University of Innsbruck (Tyrol).
+
+## Description
+We collect data of snowpit from MeteoTrentino, developing an R package to process the data and extract SWE timeseries.
+
+Snowpit, done following mod.3-4, AINEVA (Cagnati, A., 2003), contain data of layers characteristic (grain type, size, ...) and physical parameter (liquid water content,density, ...). 
+
+These data are organized into 2 files, the first contatins the stratigraphy for each snowpit done during the season (possible more than one winter season), the second contain the data of density measured (horizontal sampling) for each layer for each snowpit. There are some cases that the density are not measured, for examples for thin layers the sampler is too large. With the following functions we merge the stratigraphy file with the density file, reconstruct missing density with a method based on grain type and layer hardness (Valt M. & Cagnati A., 2005) and aggregate each profile to extract information about snow height, mean snow density and snow water equivalent. 
+
+## Package structure
+
+### *Function*
+
+The package include these five functions:
+
+1.    **file_config_xml_parsing**: the function read and parse an external files that contain the relative path, and the key parameter used in the example scripts.
+
+2.    **combine_stratigraphy_density**:the function merge stratigraphy and density data. The algorithm check data and station in the 2 input files and assign to the proper layer the density measurement. 
+
+3.    **calculate_density_matrix_grain_hardness**: the function create a coupling matrix to estimate snow density from grain type and layer hardness usign the method proposed by Valt (Valt M. & Cagnati A., 2005). The algorithm calculate the average, the standard deviation and the sample of density for each coupling of values of grain type and hardness. Only layers with density measured are used in this statistics. 
+
+4.    **calculator_density_and_SWE**: the function reconstruct missing snow density from grain type and hardness usign a coupling matrix. This matrix could be calculated (and evaluated) with the function above or in can be found in literature (Valt M. & Cagnati A.). For each layer the function calculate snow water equivalent, starting from density and thickness. 
+
+5.    **aggregate_profiles**: the function aggregate each profile calculating the snow height, the mean snow density and the snow water equivalent.
+
+
+### *Folders structure*
+
+Create the following folders structure: 
+
++   folder 
+
+    +   **Data**
+        
+        +   **Input_data** : Put inside the density and stratigraphy tables. The examples provide the data structure. 
+        +   **Output_data** : Here scripts save results files
+        +   **Support_files**: Put here the density matrix of grain_type and harndess (see the examples *Grain_Hardness_v0.csv*). Now inside there is a template based on Valt paper.
+    
+    +   **Plots**: here scripts save various plots (organized in subfolders created automatically)
+    
+    +   **File_config**: Fill here the *file_config_v0.xml*.
+        
+
+The folders highlighted with bold character must be called as in the schema above.
+
+
+### *Example_scripts*
+
+The functions above are used in the following scripts, given an example of usage and process of snow profiles. 
+
+Before runs each script set working directory. From Rstudio select Session --> Set Working Directory --> Choose Directory and select **File_config** path.
+All the paths used in script and in file_config.xml depending from **File_config** path.
+
+Here we provide a short description of examples.
+
++   **01_Examples_profile_analysis.R**: This script read the 2 input files (stratigraphy + density), merge into one file (*part 1*), estimate density from grain type and hardness matrix (Valt & Cagnati, 2005) and calculate SWE for each layer (*part 2*) and aggregate each profile extracting snow height, mean snow density and snow water equivalent (*part 3*). The input data are provided in *file_config_vo.xml*. This files contain the information that the script need to process data. For examples there are input path, names of variables and output file names. The file is an xml file and it works filling the tag. (Example:<*tag*>**fill_here**<*/tag*>)
+
++   **02_Density_from_grain_and_hardness.R**: This script calculate from stratigraphy files the average density for each pair of values of grain type and hardness. For a better comprehension of data quality and representativity, we calculate the standard deviation and the sample of values. The data, compared with Valt matrix (Valt & Cagnati, 2005), can be used to reconstruct missing density data. To have an high quality matrix of density a lot of snow profiles are required. Each element of matrix must be representative and must have a statistically significance. 
+
++   **03_Compare_Density_measured_estimated_plots.R**: This script plot in a scatterplot the reconstructed and the measured values for each station. Different colour represent different grain type. The same script plot for each station the timeseries of value measured and estimated. The aims of this script is to evaluate how the density matrix represent observation, in particular scatterplot and timeseries could help to identify anomalies, for example bias in term of grain type or hardness.
+
++   **04_Plot_Aggregated_profiles.R**: This script plot the timeseries of SWE, snow height and density of aggregated profiles. For each timeseries a quality index is calculated. The quality index is the fraction of centimeters which have a density measured compared to the snow height. A profile without reconstructed density values has a value of 1, a profile completly reconstructed has a value of 0.
+
+
+## References
+
++   Cagnati, A., 2003. *Sistemi di Misura e metodi di osservazio-ne nivometeorologici*, AINEVA, 14 Trento, p. 186
++   Valt M & Cagnati A., 2005 *Stima della Densità della neve conoscendo la forma dei grani e la durezza*, Neve e Valanghe, 55, p. 40-45

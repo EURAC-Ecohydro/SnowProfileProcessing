@@ -51,7 +51,7 @@ reconstr_flag_name =  "Flag_reconstruct"
 fraction_miss_name =  "Fraction_missing_layer"
 
 agg_profiles_table_dir = output_dir
-agg_profiles_table_file = list_inpt$part4$output_profile_aggregation
+agg_profiles_table_file = list_inpt$part3$output_profile_aggregation
 
 # ~~~~~~ Software start here: ~~~~~~~~ 
 agg_profiles_table = read.csv(paste(agg_profiles_table_dir, agg_profiles_table_file,sep = ""),stringsAsFactors = F )

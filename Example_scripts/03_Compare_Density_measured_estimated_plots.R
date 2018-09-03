@@ -43,8 +43,8 @@ density_estimated_name =  "density_from_grain_hardness"
 grain_shape1_name = "FomaGrani1"
 grain_shape2_name = "FomaGrani2"
 
-new_profiles_table_dir = list_inpt$part4$new_profiles_table_dir
-new_profiles_table_file = list_inpt$part4$new_profiles_table_file
+new_profiles_table_dir = list_inpt$part3$new_profiles_table_dir
+new_profiles_table_file = list_inpt$part3$new_profiles_table_file
 
 # ~~~~~~ Software start here: ~~~~~~~~ 
 

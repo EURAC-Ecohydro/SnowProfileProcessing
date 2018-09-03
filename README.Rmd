@@ -16,19 +16,30 @@ Snowpit, done following mod.3-4, AINEVA (Cagnati, A., 2003), contain data of lay
 
 These data are organized into 2 files, the first contatins the stratigraphy for each snowpit done during the season (possible more than one winter season), the second contain the data of density measured (horizontal sampling) for each layer for each snowpit. There are some cases that the density are not measured, for examples for thin layers the sampler is too large. With the following functions we merge the stratigraphy file with the density file, reconstruct missing density with a method based on grain type and layer hardness (Valt M. & Cagnati A., 2005) and aggregate each profile to extract information about snow height, mean snow density and snow water equivalent. 
 
-#### Folder *R* 
-The package include these five function:
+## How to start
 
-1.    **file_config_xml_parsing**: the function read and parse an external files that contain the relative path, and the key parameter used in the example scripts.
-2.    **combine_stratigraphy_density**: the function merge stratigraphy and density data. The algorithm check data and station in the 2 input files and assign to the proper layer the density measurement. 
-3.    **calculate_density_matrix_grain_hardness**: the function create a coupling matrix to estimate snow density from grain type and layer hardness usign the method proposed by Valt (Valt M. & Cagnati A., 2005). The algorithm calculate the average, the standard deviation and the sample of density for each coupling of values of grain type and hardness. Only layers with density measured are used in this statistics. 
-4.    **calculator_density_and_SWE**: the function reconstruct missing snow density from grain type and hardness usign a coupling matrix. This matrix could be calculated (and evaluated) with the function above or in can be found in literature (Valt M. & Cagnati A.). For each layer the function calculate snow water equivalent, starting from density and thickness. 
-5.    **aggregate_profiles**: the function aggregate each profile calculating the snow height, the mean snow density and the snow water equivalent.
+Clone the package from https://github.com/bridachristian/SnowProfileProcessing
+
+and install using: 
+```{r eval=FALSE}
+library(devtools)
+install_github("bridachristian/SnowProfileProcessing")
+library(SnowProfileProcessing)
+```
 
 
-These function are used in t
+## [Package documentation: Vignette](https://github.com/bridachristian/SnowProfileProcessing/Vignette/SnowProfileProcessing_vignette.Rmd)
+
+
+## Contacts:
+
++   Christian Brida: Christian.Brida@eurac.edu Insitute for Alpine Environment, Eurac Research
++   Giacomo Bertoldi: giacomo.bertoldi@eurac.edu Insitute for Alpine Environment, Eurac Research
+
 
 ## References
 
 +   Cagnati, A., 2003. *Sistemi di Misura e metodi di osservazio-ne nivometeorologici*, AINEVA, 14 Trento, p. 186
 +   Valt M & Cagnati A., 2005 *Stima della Densità della neve conoscendo la forma dei grani e la durezza*, Neve e Valanghe, 55, p. 40-45
+
+
