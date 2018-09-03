@@ -13,19 +13,7 @@
 	<station_code> "Codice.Stazione" </station_code>
 	<output_combined_file> "Dati_strati_densita_Husky_2012_18.csv" </output_combined_file>
 </part1>
-<part2>
-	<!-- Input Part 2 -->
-	<merged_table_dir> "../Data/Output_data/" </merged_table_dir>
-	<merged_table_file> "Dati_strati_densita_Husky_2012_18.csv" </merged_table_file>
-	<grain_shape1_colnames> "FomaGrani1" </grain_shape1_colnames>
-	<grain_shape2_colnames> "FomaGrani2" </grain_shape2_colnames>
-	<density_colnames> "density" </density_colnames>
-	<hardness_colnames> "TestMano" </hardness_colnames>
-	<output_SWE_grain_density_AVG_file> "SWE_grain_hardness.csv" </output_SWE_grain_density_AVG_file>
-	<output_SWE_grain_density_N_file> "SWE_grain_hardness_N.csv" </output_SWE_grain_density_N_file>
-	<output_SWE_grain_density_SD_file> "SWE_grain_hardness_SD.csv" </output_SWE_grain_density_SD_file>
-</part2> 
-<part3> 
+<part2> 
 	<!-- Input Part 3 -->
 	<SWE_grain_hardness_dir> "../Data/Support_files/" </SWE_grain_hardness_dir>
 	<SWE_grain_hardness_file> "Grain_Hardness_v0.csv" </SWE_grain_hardness_file>
@@ -39,8 +27,8 @@
 	<layer_to_colnames>	"A" </layer_to_colnames>
 	<filter_profile_colnames> "Filter_code" </filter_profile_colnames>
 	<output_density_SWE_estimated_file> "Profiles_with_Density_and_SWE_estimated.csv" </output_density_SWE_estimated_file>
-</part3>
-<part4>	
+</part2>
+<part3>	
 	<!-- Input Part 4 -->
 	<new_profiles_table_dir> "../Data/Output_data/" </new_profiles_table_dir>
 	<new_profiles_table_file> "Profiles_with_Density_and_SWE_estimated.csv" </new_profiles_table_file>
@@ -61,7 +49,7 @@
 	<recontrustction_flag_colnames> "reconstr_flag" </recontrustction_flag_colnames>
 	<thickness_colnames> "thickness" </thickness_colnames>
 	<output_profile_aggregation> "Profiles_aggregated.csv" </output_profile_aggregation> 
-</part4>
+</part3>
 </static>
 
 
