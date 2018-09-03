@@ -1,12 +1,3 @@
----
-title: "Vignette: SnowProfileProcessing"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Introduction
 
 The package was developed with the aim to create a dataset of SWE (Snow Water Equivalent) for the Euregio area ( [link](http://www.europaregion.info/it/default.asp)). The idea was to use the data collected by snow observer and shared with Local Avalanche Service in the 3 region, Trentino (I), South Tyrol (I) and Tyrol (O) to have timeseries of SWE for several points. The package was developed in the framework of project [Cryomon Sci-Pro](http://www.eurac.edu/en/research/projects/Pages/projectdetail4240.aspx). The partners are Eurac Research (South Tyrol), University of Trento (Trentino) and University of Innsbruck (Tyrol).
@@ -20,7 +11,7 @@ These data are organized into 2 files, the first contatins the stratigraphy for 
 
 ## Package structure
 
-### *Function*
+### *Functions*
 
 The package include these five functions:
 

@@ -1,12 +1,3 @@
----
-title: "SnowProfileProcessing"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 R package for the postprocessing of snow pit measurement.
 
 
